@@ -1,0 +1,61 @@
+name: Package mosdns into ipk
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * *"
+  push:
+jobs:
+  check-release:
+    outputs:
+      need_update: ${{ steps.version.outputs.tag_name }} \
+        != ${{ steps.mosdns-version.outputs.tag_name }}
+      tag_name: ${{ steps.mosdns-version.outputs.tag_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check latest release's tag name
+        id: version
+        uses: fangqiuming/latest-release-version@v1
+
+      - name: Check mosdns's latest release's tag name
+        id: mosdns-version
+        uses: fangqiuming/latest-release-version@v1
+        with:
+          repository: IrineSistiana/mosdns
+
+  package-ipk:
+    needs: check-release
+    if: needs.check-release.outputs.need_update
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "TAG_NAME=${{ needs.check-release.outputs.tag_name }}" \
+          >> $GITHUB_ENV
+      
+      - uses: actions/checkout@v3
+          
+      - name: Collect files and package into ipk file
+        shell: bash
+        run: ./main.sh
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+      
+      - name: Sign commit and push changes
+        run: |
+          git add mosdns/*
+          git commit -S -m "Auto update for mosdns ${{ env.TAG_NAME }}"
+          git push
+
+      - name: Release and upload assets
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          name: ${{ env.TAG_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          files: ${{ env.PACKAGE_OUTPUT_PATH }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: true

@@ -1,0 +1,8 @@
+Package: mosdns
+Version: v0.0.0
+SourceName: mosdns
+License: GPL-3.0
+Section: net
+Maintainer: fangqiuming <fangqiuming@outlook.com>
+Architecture: x86_64
+Description: A plug-in DNS forwarder/splitter
