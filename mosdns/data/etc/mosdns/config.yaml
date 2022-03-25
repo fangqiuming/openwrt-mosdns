@@ -1,0 +1,30 @@
+log:
+  level: info
+  file: ""
+  err_file: ""
+  info_file: ""
+library: []
+plugin:
+  - tag: server
+    type: server
+    args:
+      entry:
+        - forward_google
+      server:
+        - addr: 127.0.0.1:5353
+          protocol: udp
+        - addr: 127.0.0.1:5353
+          protocol: tcp
+        - addr: '[::1]:5353'
+          protocol: udp
+        - addr: '[::1]:5353'
+          protocol: tcp
+  - tag: forward_google
+    type: forward
+    args:
+      upstream:
+        - addr: https://dns.google/dns-query
+          ip_addr:
+            - 8.8.8.8
+            - 2001:4860:4860::8888
+include: []
