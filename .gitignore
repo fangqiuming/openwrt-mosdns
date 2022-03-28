@@ -1,3 +1,4 @@
 .vscode
+tmp*
 workspace*
 .DS_Store
