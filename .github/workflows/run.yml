@@ -64,7 +64,7 @@ jobs:
         with:
           name: ${{ env.TAG_NAME }}
           tag_name: ${{ env.TAG_NAME }}
-          body: Openwrt x86_64 .ipk package of mosdns ${ env.TAG_NAME }(https://github.com/IrineSistiana/mosdns/releases/tag/${ env.TAG_NAME })
+          body: Openwrt x86_64 .ipk package of mosdns ${{ env.TAG_NAME }}(https://github.com/IrineSistiana/mosdns/releases/tag/${{ env.TAG_NAME }})
           files: ${{ env.PACKAGE_OUTPUT_PATH }}
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
