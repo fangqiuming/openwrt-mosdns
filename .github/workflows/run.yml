@@ -7,7 +7,7 @@ on:
 jobs:
   check-release:
     outputs:
-      need_update: ${{ ${{ steps.version.outputs.tag_name }} != ${{ steps.mosdns-version.outputs.tag_name }} }}
+      need_update: ${{ steps.version.outputs.tag_name != steps.mosdns-version.outputs.tag_name }}
       tag_name: ${{ steps.mosdns-version.outputs.tag_name }}
     runs-on: ubuntu-latest
     steps:
