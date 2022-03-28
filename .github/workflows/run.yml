@@ -24,7 +24,7 @@ jobs:
 
   package-ipk:
     needs: check-release
-    if: needs.check-release.outputs.need_update
+    if: needs.check-release.outputs.need_update == ${{ true }}
     runs-on: ubuntu-latest
     steps:
       - run: |
