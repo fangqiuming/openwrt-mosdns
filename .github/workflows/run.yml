@@ -28,14 +28,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "TAG_NAME=${{ needs.check-release.outputs.tag_name }}" \
-          >> $GITHUB_ENV
-      
+          TAG_NAME=${{ needs.check-release.outputs.tag_name }}
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=mosdns" >> $GITHUB_ENV
+          echo "DISTRIB_ARCH=x86_64" >> $GITHUB_ENV
+
       - uses: actions/checkout@v3
           
-      - name: Collect files and package into ipk file
+      - name: Collect files
         shell: bash
-        run: ./main.sh
+        run: ./collect.sh
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
@@ -51,11 +53,16 @@ jobs:
           git commit -S -m "Auto update for mosdns ${{ env.TAG_NAME }}"
           git push
 
+      - name: Package .ipk
+        shell: bash
+        run: ./package.sh
+
       - name: Release and upload assets
         uses: softprops/action-gh-release@v0.1.14
         with:
           name: ${{ env.TAG_NAME }}
           tag_name: ${{ env.TAG_NAME }}
+          body: Openwrt x86_64 .ipk package of mosdns ${ env.TAG_NAME }(https://github.com/IrineSistiana/mosdns/releases/tag/${ env.TAG_NAME })
           files: ${{ env.PACKAGE_OUTPUT_PATH }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          draft: true
+          prerelease: true
