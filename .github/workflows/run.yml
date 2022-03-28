@@ -46,12 +46,14 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           git_user_signingkey: true
           git_commit_gpgsign: true
-      
-      - name: Sign commit and push changes
+
+      - name: Commit and push changes
         run: |
           git add mosdns/*
-          git commit -S -m "Auto update for mosdns ${{ env.TAG_NAME }}"
-          git push
+          if [[ $(git status -s | wc -l) -gt 0 ]]; then
+            git commit -S -m "Auto update for mosdns ${{ env.TAG_NAME }}"
+            git push
+          fi
 
       - name: Package .ipk
         shell: bash

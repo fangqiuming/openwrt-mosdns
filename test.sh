@@ -18,13 +18,22 @@ echo -e "  ${COLOR}${PATH}${CLEAR}"
 
 rm -rf "${GITHUB_WORKSPACE}"
 mkdir -p "${GITHUB_WORKSPACE}"
-cp -r {mosdns,collect.sh,package.sh} "${GITHUB_WORKSPACE}"
+cp -r {.gitignore,mosdns,collect.sh,package.sh} "${GITHUB_WORKSPACE}"
 find "${GITHUB_WORKSPACE}" -name ".DS_Store" -delete
 
 echo -e "${BOLD}TEST BEGIN${CLEAR}"
 cd "$GITHUB_WORKSPACE"
+git init -q; git add -A; git commit -q -m "Test begin"
 echo -e "${COLOR}RUN COLLECT FILE SCRIPT${CLEAR}"
 ./collect.sh
+echo -e "${COLOR}CHECK FILE${CLEAR}"
+git add mosdns/*
+if [[ $(git status -s | wc -l) -gt 0 ]]; then
+  git commit -q -m "Auto update for mosdns ${TAG_NAME}"
+  git log --name-status HEAD^..HEAD
+else
+  echo 'Nothing to commit'
+fi
 echo -e "${COLOR}RUN PACKAGE .IPK SCRIPT${CLEAR}"
 . ./package.sh
 echo -e "${BOLD}TEST END$CLEAR"
