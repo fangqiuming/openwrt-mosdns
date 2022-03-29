@@ -15,7 +15,7 @@ jobs:
         id: version
         uses: fangqiuming/latest-release-version@v1.2.0-beta
         with:
-          include-pre: 'true'
+          include_pre: 'true'
 
       - name: Check mosdns's latest release's tag name
         id: mosdns-version
