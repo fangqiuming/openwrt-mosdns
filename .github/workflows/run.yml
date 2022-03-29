@@ -13,11 +13,13 @@ jobs:
     steps:
       - name: Check latest release's tag name
         id: version
-        uses: fangqiuming/latest-release-version@v1
+        uses: fangqiuming/latest-release-version@v1.2.0-beta
+        with:
+          include-pre: 'true'
 
       - name: Check mosdns's latest release's tag name
         id: mosdns-version
-        uses: fangqiuming/latest-release-version@v1
+        uses: fangqiuming/latest-release-version@v1.2.0-beta
         with:
           repository: IrineSistiana/mosdns
 
