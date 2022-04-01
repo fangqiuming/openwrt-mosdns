@@ -7,6 +7,11 @@ library: []
 plugin:
   - tag: server
     type: server
+    log:
+      level: ""
+      file: ""
+      err_file: ""
+      info_file: ""
     args:
       entry:
         - forward_google
@@ -21,6 +26,11 @@ plugin:
           protocol: tcp
   - tag: forward_google
     type: forward
+    log:
+      level: ""
+      file: ""
+      err_file: ""
+      info_file: ""
     args:
       upstream:
         - addr: https://dns.google/dns-query
