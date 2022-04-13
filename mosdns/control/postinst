@@ -1,5 +1,16 @@
 #!/bin/sh
-[ "${IPKG_NO_SCRIPT}" = "1" ] && exit 0
-[ -s ${IPKG_INSTROOT}/lib/functions.sh ] || exit 0
-. ${IPKG_INSTROOT}/lib/functions.sh
-default_postinst $0 $@
+# check if we are on real system
+if [ -z "${IPKG_INSTROOT}" ]; then
+    if [ -f "/tmp/mosdns_config.bak" ]; then
+        cp -f "/etc/mosdns/config.yaml" \
+        "/etc/mosdns/config.default.yaml" >/dev/null 2>&1
+        cp -f "/tmp/mosdns_config.bak" \
+        "/etc/mosdns/config.yaml" >/dev/null 2>&1
+    fi
+    /etc/init.d/mosdns enable
+fi
+exit 0
+# [ "${IPKG_NO_SCRIPT}" = "1" ] && exit 0
+# [ -s ${IPKG_INSTROOT}/lib/functions.sh ] || exit 0
+# . ${IPKG_INSTROOT}/lib/functions.sh
+# default_postinst $0 $@
