@@ -7,7 +7,7 @@ COLOR='\e[0;33m'
 CLEAR='\e[0m'
 printf "%bTEST SETUP%b\n" "${BOLD}" "${CLEAR}"
 
-export TAG_NAME=v3.5.2
+export TAG_NAME=v3.7.2
 export PACKAGE_NAME=mosdns
 export DISTRIB_ARCH=x86_64
 export GITHUB_ENV=/dev/stdout

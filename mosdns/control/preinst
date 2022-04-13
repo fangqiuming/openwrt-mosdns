@@ -1,8 +1,6 @@
 #!/bin/sh
-# check if we are on real system
-if [ -z "${IPKG_INSTROOT}" ]; then
-    if [ -f "/etc/mosdns/config.yaml" ]; then
-        cp -f "/etc/mosdns/config.yaml" "/tmp/mosdns_config.bak" >/dev/null 2>&1
-    fi
+[ "${IPKG_NO_SCRIPT}" = "1" ] && exit 0
+if [ -f "/etc/mosdns/config.yaml" ]; then
+    mv -f "/etc/mosdns/config.yaml" "/etc/mosdns/config.bak.yaml"
 fi
 exit 0

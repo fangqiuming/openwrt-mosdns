@@ -1,9 +1,6 @@
 #!/bin/sh
 [ "${IPKG_NO_SCRIPT}" = "1" ] && exit 0
 if [ -f "/etc/mosdns/config.bak.yaml" ]; then
-    mv -f "/etc/mosdns/config.yaml" "/etc/mosdns/config.default.yaml"
     cp -f "/etc/mosdns/config.bak.yaml" "/etc/mosdns/config.yaml"
 fi
-/etc/init.d/mosdns enable
-/etc/init.d/mosdns start
 exit 0
