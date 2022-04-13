@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -euo pipefail
+set -eu
 
 IPK_FILE_NAME="${PACKAGE_NAME}_${TAG_NAME}_${DISTRIB_ARCH}.ipk"
 

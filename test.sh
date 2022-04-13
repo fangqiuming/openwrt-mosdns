@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-set -euo pipefail
+set -eu
 
 BOLD='\033[1;33m'
 COLOR='\033[0;33m'

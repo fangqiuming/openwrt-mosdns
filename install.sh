@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -euo pipefail
+set -eu
 
 REDIRECTION="https://github.com/fangqiuming/openwrt-mosdns/releases/latest"
 DOWNLOAD_URL="https://github.com/fangqiuming/openwrt-mosdns/releases/download"
