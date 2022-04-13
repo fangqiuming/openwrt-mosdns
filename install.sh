@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -euo pipefail
+
 REDIRECTION="https://github.com/fangqiuming/openwrt-mosdns/releases/latest"
 DOWNLOAD_URL="https://github.com/fangqiuming/openwrt-mosdns/releases/download"
 if test -n "${OPENWRT_MOSDNS_INSTALL_CDN}"; then

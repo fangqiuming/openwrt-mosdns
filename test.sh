@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -euo pipefail
+
 BOLD='\033[1;33m'
 COLOR='\033[0;33m'
 CLEAR='\033[0m'

@@ -1,12 +1,14 @@
 #!/bin/sh
 
+set -euo pipefail
+
 : <<'END'
 What do this script do?
 [Openwrt General Installation Tutorial](https://github.com/IrineSistiana/mosdns/wiki/Home/da51e5d807fb83c862a4dabe802f9b7e5be339d2#openwrt-%E5%AE%89%E8%A3%85%E9%80%9A%E7%94%A8%E6%95%99%E7%A8%8B)
 END
 
 mkdir -p tmp/collect
-pushd tmp/collect
+cd tmp/collect
 
 SOURCE_URL='https://raw.githubusercontent.com/IrineSistiana/mosdns'
 curl -OL "${SOURCE_URL}/${TAG_NAME}/scripts/openwrt/mosdns-init-openwrt"
@@ -30,12 +32,11 @@ mv mosdns/config.yaml files/etc/mosdns/
 # curl -fsS -OL https://github.com/leemars/v2ray-rules-dat/releases/latest/download/geosite.dat
 # mv {geoip,geosite}.dat files/etc/mosdns/
 
-pushd files
+cd files
 sed -i 's/53/5353/g' etc/mosdns/config.yaml
 chmod 755 ./usr/bin/mosdns
 chmod 755 ./etc/init.d/mosdns
-popd
-popd
+cd ../../..
 
 cp -rf tmp/collect/files/* mosdns/data
 
