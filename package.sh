@@ -18,4 +18,4 @@ cd ..
 
 tar cvzf "${IPK_FILE_NAME}" ./control.tar.gz ./data.tar.gz ./debian-binary
 export PACKAGE_OUTPUT_PATH="${PWD}/${IPK_FILE_NAME}"
-echo PACKAGE_OUTPUT_PATH=${PACKAGE_OUTPUT_PATH} >> $GITHUB_ENV
+echo PACKAGE_OUTPUT_PATH="${PACKAGE_OUTPUT_PATH}" >>"$GITHUB_ENV"
