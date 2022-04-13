@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 : <<'END'
 What do this script do?

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 IPK_FILE_NAME="${PACKAGE_NAME}_${TAG_NAME}_${DISTRIB_ARCH}.ipk"
 
 mkdir -p tmp/package
