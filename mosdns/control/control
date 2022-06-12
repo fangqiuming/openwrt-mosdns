@@ -1,5 +1,5 @@
 Package: mosdns
-Version: v3.9.0
+Version: v4.0.0-alpha1
 SourceName: mosdns
 License: GPL-3.0
 Section: net

@@ -3,38 +3,28 @@ log:
   file: ""
   err_file: ""
   info_file: ""
-library: []
-plugin:
-  - tag: server
-    type: server
-    log:
-      level: ""
-      file: ""
-      err_file: ""
-      info_file: ""
+data_providers:
+  - tag: data1
+    file: data.txt
+    auto_reload: true
+plugins:
+  - tag: tag
+    type: type
     args:
-      entry:
-        - forward_google
-      server:
-        - addr: 127.0.0.1:5353
-          protocol: udp
-        - addr: 127.0.0.1:5353
-          protocol: tcp
-        - addr: '[::1]:5353'
-          protocol: udp
-        - addr: '[::1]:5353'
-          protocol: tcp
-  - tag: forward_google
-    type: forward
-    log:
-      level: ""
-      file: ""
-      err_file: ""
-      info_file: ""
-    args:
-      upstream:
-        - addr: https://dns.google/dns-query
-          ip_addr:
-            - 8.8.8.8
-            - 2001:4860:4860::8888
-include: []
+      key: value
+sequences:
+  - tag: logic1
+    exec:
+      - exec1
+      - exec2
+servers:
+  - exec: logic1
+    timeout: 0
+    listeners:
+      - protocol: udp
+        addr: 127.0.0.1:5353
+        cert: ""
+        key: ""
+        url_path: ""
+        get_user_ip_from_header: ""
+        idle_timeout: 0
