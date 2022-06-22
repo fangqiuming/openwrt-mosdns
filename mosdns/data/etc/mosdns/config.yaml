@@ -1,30 +1,16 @@
 log:
-  level: info
-  file: ""
-  err_file: ""
-  info_file: ""
-data_providers:
-  - tag: data1
-    file: data.txt
-    auto_reload: true
+    file: ""
+    level: info
 plugins:
-  - tag: tag
-    type: type
-    args:
-      key: value
-sequences:
-  - tag: logic1
-    exec:
-      - exec1
-      - exec2
+    - args:
+        upstream:
+            - addr: https://8.8.8.8/dns-query
+      tag: forward_google
+      type: fast_forward
 servers:
-  - exec: logic1
-    timeout: 0
-    listeners:
-      - protocol: udp
-        addr: 127.0.0.1:5353
-        cert: ""
-        key: ""
-        url_path: ""
-        get_user_ip_from_header: ""
-        idle_timeout: 0
+    - exec: forward_google
+      listeners:
+        - addr: 127.0.0.1:553533
+          protocol: udp
+        - addr: 127.0.0.1:553533
+          protocol: tcp
