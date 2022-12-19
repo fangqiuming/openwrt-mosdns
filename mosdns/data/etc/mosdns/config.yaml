@@ -1,16 +1,18 @@
 log:
-    file: ""
     level: info
 plugins:
     - args:
-        upstream:
+        upstreams:
             - addr: https://8.8.8.8/dns-query
       tag: forward_google
-      type: fast_forward
-servers:
-    - exec: forward_google
-      listeners:
-        - addr: 127.0.0.1:553533
-          protocol: udp
-        - addr: 127.0.0.1:553533
-          protocol: tcp
+      type: forward
+    - args:
+        entry: forward_google
+        listen: 127.0.0.1:5353
+      tag: udp_server
+      type: udp_server
+    - args:
+        entry: forward_google
+        listen: 127.0.0.1:5353
+      tag: tcp_server
+      type: tcp_server
